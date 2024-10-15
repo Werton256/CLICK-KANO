@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra - Klikaj Kano</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        #cel {
+            width: 50px; /* Szerokość obrazka */
+            height: 50px; /* Wysokość obrazka */
+            position: absolute;
+            cursor: pointer;
+        }
+        #wynik {
+            font-size: 25px;
+            margin-top: 20px;
+        }
+        .obszar {
+            position: relative;
+            width: 700px; /* Szerokość obszaru */
+            height: 700px; /* Wysokość obszaru */
+            border: 2px dashed #333; /* Obramowanie obszaru */
+        }
+    </style>
+</head>
+<body>
+    <h1>Gra - Klikaj Kano</h1>
+    <div class="obszar">
+        <img id="cel" src="Kano.png" alt="cel">
+    </div>
+    <div id="wynik">Punkty: 0</div>
+
+    <script>
+        let punkty = 0;
+        const cel = document.getElementById('cel');
+        const wynik = document.getElementById('wynik');
+        const obszar = document.querySelector('.obszar');
+
+        function losujPozycje() {
+            const obszarSzerokosc = obszar.clientWidth;
+            const obszarWysokosc = obszar.clientHeight;
+
+            // Ustalanie losowej pozycji w obrębie obszaru
+            const x = Math.random() * (obszarSzerokosc - 50); // 50 to szerokość celu
+            const y = Math.random() * (obszarWysokosc - 50); // 50 to wysokość celu
+            cel.style.left = `${x}px`;
+            cel.style.top = `${y}px`;
+        }
+
+        function kliknijCel() {
+            punkty++;
+            wynik.textContent = `Punkty: ${punkty}`;
+            losujPozycje();
+        }
+
+        // Ustaw początkową pozycję
+        losujPozycje();
+
+        // Dodaj zdarzenie kliknięcia
+        cel.addEventListener('click', kliknijCel);
+
+        // Co 1 sekundę zmieniaj pozycję celu
+        setInterval(losujPozycje, 1000);
+    </script>
+</body>
+</html>
