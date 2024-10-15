@@ -1,0 +1,2 @@
+# CLICK-KANO
+Prosta gra
